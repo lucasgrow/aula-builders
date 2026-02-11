@@ -1,0 +1,64 @@
+{
+  "name": "cloudflare-builder",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "setup": "npx tsx scripts/setup.ts",
+    "cf:build": "opennextjs-cloudflare build",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv env.d.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate:dev": "drizzle-kit migrate",
+    "db:migrate:prod": "NODE_ENV=production drizzle-kit migrate",
+    "db:studio:dev": "drizzle-kit studio",
+    "db:studio:prod": "NODE_ENV=production drizzle-kit studio"
+  },
+  "dependencies": {
+    "@auth/drizzle-adapter": "^1.4.2",
+    "@heroui/react": "^2.8.5",
+    "@heroui/theme": "^2.4.23",
+    "@iconify/react": "^6.0.2",
+    "@opennextjs/cloudflare": "^1.16.3",
+    "@t3-oss/env-nextjs": "^0.13.10",
+    "aws4fetch": "^1.0.20",
+    "clsx": "^2.1.1",
+    "drizzle-orm": "^0.44.6",
+    "framer-motion": "^12.23.24",
+    "next": "14.2.5",
+    "next-auth": "^5.0.0-beta.20",
+    "react": "^18",
+    "react-dom": "^18",
+    "resend": "^4.0.0",
+    "server-only": "^0.0.1",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240903.0",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "better-sqlite3": "^12.6.2",
+    "drizzle-kit": "^0.31.5",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5",
+    "wrangler": "^4.42.0",
+    "@clack/prompts": "^0.8.2",
+    "@iarna/toml": "^2.2.5"
+  },
+  "overrides": {
+    "@heroui/theme": {
+      "tailwindcss": "^3.4.1"
+    }
+  }
+}
