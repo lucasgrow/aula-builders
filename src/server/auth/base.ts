@@ -11,7 +11,6 @@ function getEnv(): CloudflareEnv {
     const { env } = getCloudflareContext();
     return env;
   } catch {
-    // Dev fallback: read from process.env directly (no Zod validation to avoid crash in Workers)
     return {
       AUTH_SECRET: process.env.AUTH_SECRET ?? "",
       AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID ?? "",
