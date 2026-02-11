@@ -28,7 +28,10 @@ export function createAuth(db: any) {
   return NextAuth({
     trustHost: true,
     secret: env.AUTH_SECRET,
-    adapter: DrizzleAdapter(db),
+    adapter: {
+      ...DrizzleAdapter(db),
+      createUser: (data: any) => DrizzleAdapter(db).createUser!({ ...data, createdAt: new Date() }),
+    },
     session: {
       strategy: "jwt",
     },

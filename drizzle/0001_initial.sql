@@ -5,7 +5,7 @@ CREATE TABLE `user` (
   `emailVerified` integer,
   `image` text,
   `role` text NOT NULL DEFAULT 'user',
-  `createdAt` integer NOT NULL
+  `createdAt` integer NOT NULL DEFAULT (unixepoch())
 );
 
 CREATE TABLE `account` (
@@ -42,7 +42,7 @@ CREATE TABLE `user_settings` (
   `id` text PRIMARY KEY NOT NULL,
   `userId` text NOT NULL,
   `theme` text DEFAULT 'system',
-  `createdAt` integer NOT NULL,
-  `updatedAt` integer NOT NULL,
+  `createdAt` integer NOT NULL DEFAULT (unixepoch()),
+  `updatedAt` integer NOT NULL DEFAULT (unixepoch()),
   FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON DELETE CASCADE
 );

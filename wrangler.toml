@@ -1,4 +1,4 @@
-name = "{{PROJECT_NAME}}"
+name = "aula-builders"
 main = ".open-next/worker.js"
 compatibility_date = "2024-12-30"
 compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
@@ -9,17 +9,17 @@ binding = "ASSETS"
 
 [[services]]
 binding = "WORKER_SELF_REFERENCE"
-service = "{{PROJECT_NAME}}"
+service = "aula-builders"
 
 [placement]
 mode = "smart"
 
 [[d1_databases]]
 binding = "DATABASE"
-database_name = "{{PROJECT_NAME}}-d1"
-database_id = "{{D1_DATABASE_ID}}"
+database_name = "aula-builders-d1"
+database_id = "22262215-f320-492c-b5c9-c172d9022417"
 migrations_dir = "./drizzle"
 
 [[r2_buckets]]
 binding = "STORAGE"
-bucket_name = "{{PROJECT_NAME}}-storage"
+bucket_name = "aula-builders-storage"

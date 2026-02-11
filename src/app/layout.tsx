@@ -5,8 +5,8 @@ import { ThemeScript } from "@/lib/theme/theme-script";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Cloudflare Builder",
-  description: "SaaS starter on Cloudflare",
+  title: "Bello - Organize anything, together",
+  description: "A collaborative Kanban board for teams. Organize projects, track tasks, and ship faster.",
 };
 
 export default function RootLayout({

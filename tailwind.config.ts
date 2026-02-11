@@ -2,7 +2,7 @@ import { heroui } from "@heroui/react";
 import type { Config } from "tailwindcss";
 
 // Changed by setup script. Options: "zinc" | "emerald" | "orange" | "violet" | "amber"
-const PALETTE = "zinc";
+const PALETTE = "emerald";
 
 const config: Config = {
   darkMode: ["class"],
@@ -93,18 +93,18 @@ const config: Config = {
               foreground: "#09090B",
             },
             primary: {
-              50: "#FAFAFA",
-              100: "#F4F4F5",
-              200: "#E4E4E7",
-              300: "#D4D4D8",
-              400: "#A1A1AA",
-              500: "#71717A",
-              600: "#52525B",
-              700: "#3F3F46",
-              800: "#27272A",
-              900: "#18181B",
-              DEFAULT: "#18181B",
-              foreground: "#FAFAFA",
+              50: "#ECFDF5",
+              100: "#D1FAE5",
+              200: "#A7F3D0",
+              300: "#6EE7B7",
+              400: "#34D399",
+              500: "#10B981",
+              600: "#059669",
+              700: "#047857",
+              800: "#065F46",
+              900: "#064E3B",
+              DEFAULT: "#059669",
+              foreground: "#FFFFFF",
             },
             secondary: {
               50: "#F5F5F4",
@@ -190,18 +190,18 @@ const config: Config = {
               foreground: "#FAFAFA",
             },
             primary: {
-              50: "#18181B",
-              100: "#27272A",
-              200: "#3F3F46",
-              300: "#52525B",
-              400: "#71717A",
-              500: "#A1A1AA",
-              600: "#D4D4D8",
-              700: "#E4E4E7",
-              800: "#F4F4F5",
-              900: "#FAFAFA",
-              DEFAULT: "#FAFAFA",
-              foreground: "#18181B",
+              50: "#064E3B",
+              100: "#065F46",
+              200: "#047857",
+              300: "#059669",
+              400: "#10B981",
+              500: "#34D399",
+              600: "#6EE7B7",
+              700: "#A7F3D0",
+              800: "#D1FAE5",
+              900: "#ECFDF5",
+              DEFAULT: "#34D399",
+              foreground: "#064E3B",
             },
             secondary: {
               50: "#0C0A09",

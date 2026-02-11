@@ -1,4 +1,5 @@
-import { sqliteTable, text, integer, primaryKey } from "drizzle-orm/sqlite-core";
+import { sqliteTable, text, integer, primaryKey, uniqueIndex } from "drizzle-orm/sqlite-core";
+import { sql } from "drizzle-orm";
 
 // ── NextAuth tables ──────────────────────────────────────────────
 
@@ -11,7 +12,7 @@ export const users = sqliteTable("user", {
   role: text("role", { enum: ["user", "admin"] }).notNull().default("user"),
   createdAt: integer("createdAt", { mode: "timestamp" })
     .notNull()
-    .$defaultFn(() => new Date()),
+    .default(sql`(unixepoch())`),
 });
 
 export const accounts = sqliteTable(
@@ -68,8 +69,201 @@ export const userSettings = sqliteTable("user_settings", {
   theme: text("theme", { enum: ["light", "dark", "system"] }).default("system"),
   createdAt: integer("createdAt", { mode: "timestamp" })
     .notNull()
-    .$defaultFn(() => new Date()),
+    .default(sql`(unixepoch())`),
   updatedAt: integer("updatedAt", { mode: "timestamp" })
     .notNull()
-    .$defaultFn(() => new Date()),
+    .default(sql`(unixepoch())`),
+});
+
+// ── Bello (Kanban) tables ────────────────────────────────────────
+
+export const board = sqliteTable("board", {
+  id: text("id").notNull().primaryKey(),
+  name: text("name").notNull(),
+  description: text("description"),
+  background: text("background").default("#059669"),
+  ownerId: text("ownerId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  isClosed: integer("isClosed", { mode: "boolean" }).notNull().default(false),
+  createdAt: integer("createdAt", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
+export const boardMember = sqliteTable(
+  "board_member",
+  {
+    id: text("id").notNull().primaryKey(),
+    boardId: text("boardId")
+      .notNull()
+      .references(() => board.id, { onDelete: "cascade" }),
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    role: text("role", { enum: ["admin", "member", "viewer"] })
+      .notNull()
+      .default("member"),
+    createdAt: integer("createdAt", { mode: "timestamp" })
+      .notNull()
+      .default(sql`(unixepoch())`),
+  },
+  (t) => ({
+    uniqMember: uniqueIndex("board_member_uniq").on(t.boardId, t.userId),
+  })
+);
+
+export const list = sqliteTable("list", {
+  id: text("id").notNull().primaryKey(),
+  boardId: text("boardId")
+    .notNull()
+    .references(() => board.id, { onDelete: "cascade" }),
+  title: text("title").notNull(),
+  position: integer("position").notNull().default(0),
+  isArchived: integer("isArchived", { mode: "boolean" }).notNull().default(false),
+  createdAt: integer("createdAt", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
+export const card = sqliteTable("card", {
+  id: text("id").notNull().primaryKey(),
+  listId: text("listId")
+    .notNull()
+    .references(() => list.id, { onDelete: "cascade" }),
+  title: text("title").notNull(),
+  description: text("description"),
+  position: integer("position").notNull().default(0),
+  dueDate: integer("dueDate", { mode: "timestamp" }),
+  coverColor: text("coverColor"),
+  isArchived: integer("isArchived", { mode: "boolean" }).notNull().default(false),
+  createdAt: integer("createdAt", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
+export const label = sqliteTable("label", {
+  id: text("id").notNull().primaryKey(),
+  boardId: text("boardId")
+    .notNull()
+    .references(() => board.id, { onDelete: "cascade" }),
+  name: text("name").notNull(),
+  color: text("color").notNull(),
+  createdAt: integer("createdAt", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
+export const cardLabel = sqliteTable(
+  "card_label",
+  {
+    id: text("id").notNull().primaryKey(),
+    cardId: text("cardId")
+      .notNull()
+      .references(() => card.id, { onDelete: "cascade" }),
+    labelId: text("labelId")
+      .notNull()
+      .references(() => label.id, { onDelete: "cascade" }),
+    createdAt: integer("createdAt", { mode: "timestamp" })
+      .notNull()
+      .default(sql`(unixepoch())`),
+  },
+  (t) => ({
+    uniqCardLabel: uniqueIndex("card_label_uniq").on(t.cardId, t.labelId),
+  })
+);
+
+export const cardMember = sqliteTable(
+  "card_member",
+  {
+    id: text("id").notNull().primaryKey(),
+    cardId: text("cardId")
+      .notNull()
+      .references(() => card.id, { onDelete: "cascade" }),
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    createdAt: integer("createdAt", { mode: "timestamp" })
+      .notNull()
+      .default(sql`(unixepoch())`),
+  },
+  (t) => ({
+    uniqCardMember: uniqueIndex("card_member_uniq").on(t.cardId, t.userId),
+  })
+);
+
+export const comment = sqliteTable("comment", {
+  id: text("id").notNull().primaryKey(),
+  cardId: text("cardId")
+    .notNull()
+    .references(() => card.id, { onDelete: "cascade" }),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  content: text("content").notNull(),
+  createdAt: integer("createdAt", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+  updatedAt: integer("updatedAt", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
+export const activity = sqliteTable("activity", {
+  id: text("id").notNull().primaryKey(),
+  boardId: text("boardId")
+    .notNull()
+    .references(() => board.id, { onDelete: "cascade" }),
+  cardId: text("cardId"),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  type: text("type").notNull(),
+  data: text("data"),
+  createdAt: integer("createdAt", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
+export const checklist = sqliteTable("checklist", {
+  id: text("id").notNull().primaryKey(),
+  cardId: text("cardId")
+    .notNull()
+    .references(() => card.id, { onDelete: "cascade" }),
+  title: text("title").notNull(),
+  position: integer("position").notNull().default(0),
+  createdAt: integer("createdAt", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
+export const checklistItem = sqliteTable("checklist_item", {
+  id: text("id").notNull().primaryKey(),
+  checklistId: text("checklistId")
+    .notNull()
+    .references(() => checklist.id, { onDelete: "cascade" }),
+  title: text("title").notNull(),
+  isChecked: integer("isChecked", { mode: "boolean" }).notNull().default(false),
+  position: integer("position").notNull().default(0),
+  createdAt: integer("createdAt", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
+export const attachment = sqliteTable("attachment", {
+  id: text("id").notNull().primaryKey(),
+  cardId: text("cardId")
+    .notNull()
+    .references(() => card.id, { onDelete: "cascade" }),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  filename: text("filename").notNull(),
+  originalFilename: text("originalFilename").notNull(),
+  contentType: text("contentType").notNull(),
+  size: integer("size").notNull(),
+  s3Key: text("s3Key").notNull(),
+  createdAt: integer("createdAt", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
 });

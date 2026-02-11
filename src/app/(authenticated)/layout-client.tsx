@@ -21,11 +21,13 @@ import { useTheme } from "@/hooks/use-theme";
 
 const sidebarItems: SidebarItem[] = [
   { key: "dashboard", href: "/dashboard", icon: "solar:home-2-linear", title: "Dashboard" },
+  { key: "boards", href: "/boards", icon: "solar:widget-5-linear", title: "Boards" },
   { key: "settings", href: "/settings", icon: "solar:settings-linear", title: "Settings" },
 ];
 
 const mobileNavItems = [
   { key: "dashboard", href: "/dashboard", icon: "solar:home-2-bold", title: "Dashboard" },
+  { key: "boards", href: "/boards", icon: "solar:widget-5-bold", title: "Boards" },
   { key: "settings", href: "/settings", icon: "solar:settings-bold", title: "Settings" },
 ];
 
@@ -37,6 +39,7 @@ interface LayoutUser {
 
 const breadcrumbLabels: Record<string, string> = {
   dashboard: "Dashboard",
+  boards: "Boards",
   settings: "Settings",
 };
 
@@ -74,7 +77,7 @@ export function AuthenticatedLayoutClient({
       >
         {/* Logo */}
         <div className={cn("flex h-16 items-center border-b border-divider px-4", isCompact && "justify-center")}>
-          {!isCompact && <span className="text-lg font-bold">Builder</span>}
+          {!isCompact && <span className="text-lg font-bold">Bello</span>}
           <Button
             isIconOnly
             variant="light"
