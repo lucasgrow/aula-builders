@@ -2,6 +2,7 @@ name = "aula-builders"
 main = ".open-next/worker.js"
 compatibility_date = "2024-12-30"
 compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
+workers_dev = true
 
 [assets]
 directory = ".open-next/assets"
@@ -23,3 +24,7 @@ migrations_dir = "./drizzle"
 [[r2_buckets]]
 binding = "STORAGE"
 bucket_name = "aula-builders-storage"
+
+[[routes]]
+pattern = "bello.tolma.cloud"
+custom_domain = true

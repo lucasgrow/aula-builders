@@ -21,7 +21,7 @@ export function CreateListForm({ onAdd }: Props) {
 
   if (!isAdding) {
     return (
-      <div className="w-[272px] flex-shrink-0">
+      <div className="w-[min(20rem,calc(100vw-2rem))] md:w-[300px] lg:w-[320px] flex-shrink-0 snap-start">
         <Button
           variant="flat"
           className="w-full justify-start bg-content1/80 backdrop-blur-sm"
@@ -35,7 +35,7 @@ export function CreateListForm({ onAdd }: Props) {
   }
 
   return (
-    <div className="w-[272px] flex-shrink-0 rounded-xl bg-content1 border border-divider p-3">
+    <div className="w-[min(20rem,calc(100vw-2rem))] md:w-[300px] lg:w-[320px] flex-shrink-0 snap-start rounded-xl bg-content1 border border-divider p-3">
       <Input
         size="sm"
         placeholder="Enter list title..."

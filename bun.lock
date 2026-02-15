@@ -4,6 +4,7 @@
     "": {
       "name": "cloudflare-builder",
       "dependencies": {
+        "@auth/d1-adapter": "^1.11.1",
         "@auth/drizzle-adapter": "^1.4.2",
         "@hello-pangea/dnd": "^18.0.1",
         "@heroui/react": "^2.8.5",
@@ -72,6 +73,8 @@
     "@ast-grep/napi-win32-x64-msvc": ["@ast-grep/napi-win32-x64-msvc@0.40.5", "", { "os": "win32", "cpu": "x64" }, "sha512-dqm5zg/o4Nh4VOQPEpMS23ot8HVd22gG0eg01t4CFcZeuzyuSgBlOL3N7xLbz3iH2sVkk7keuBwAzOIpTqziNQ=="],
 
     "@auth/core": ["@auth/core@0.41.1", "", { "dependencies": { "@panva/hkdf": "^1.2.1", "jose": "^6.0.6", "oauth4webapi": "^3.3.0", "preact": "10.24.3", "preact-render-to-string": "6.5.11" }, "peerDependencies": { "@simplewebauthn/browser": "^9.0.1", "@simplewebauthn/server": "^9.0.2", "nodemailer": "^7.0.7" }, "optionalPeers": ["@simplewebauthn/browser", "@simplewebauthn/server", "nodemailer"] }, "sha512-t9cJ2zNYAdWMacGRMT6+r4xr1uybIdmYa49calBPeTqwgAFPV/88ac9TEvCR85pvATiSPt8VaNf+Gt24JIT/uw=="],
+
+    "@auth/d1-adapter": ["@auth/d1-adapter@1.11.1", "", { "dependencies": { "@auth/core": "0.41.1" } }, "sha512-GRk18igRlGb0DYqskicf5101Q08WCbFCjuf5zyqqCnSShGKY43r3FkVI14sZLbkQZ8oJTciH8vCfkfQgTKHGiQ=="],
 
     "@auth/drizzle-adapter": ["@auth/drizzle-adapter@1.11.1", "", { "dependencies": { "@auth/core": "0.41.1" } }, "sha512-cQTvDZqsyF7RPhDm/B6SvqdVP9EzQhy3oM4Muu7fjjmSYFLbSR203E6dH631ZHSKDn2b4WZkfMnjPDzRsPSAeA=="],
 

@@ -31,7 +31,7 @@ export function BoardList({ list, index, onAddCard, onCardClick }: Props) {
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
-          className="w-[272px] flex-shrink-0 flex flex-col max-h-full"
+          className="w-[min(20rem,calc(100vw-2rem))] md:w-[300px] lg:w-[320px] flex-shrink-0 flex flex-col md:max-h-full snap-start"
         >
           <div
             {...provided.dragHandleProps}
@@ -46,7 +46,7 @@ export function BoardList({ list, index, onAddCard, onCardClick }: Props) {
               <div
                 ref={dropProvided.innerRef}
                 {...dropProvided.droppableProps}
-                className={`flex-1 overflow-y-auto bg-content1 border-x border-divider px-2 py-1 min-h-[40px] ${
+                className={`md:flex-1 overflow-y-visible md:overflow-y-auto bg-content1 border-x border-divider px-2 py-1 min-h-[40px] ${
                   snapshot.isDraggingOver ? "bg-primary-50/50 dark:bg-primary-50/10" : ""
                 }`}
               >

@@ -231,7 +231,7 @@ export function BoardCanvas({ boardId }: { boardId: string }) {
   }
 
   return (
-    <div className="-mx-4 -my-6 md:-mx-6 flex flex-col h-[calc(100dvh-4rem)] md:h-[calc(100dvh-4rem)]">
+    <div className="-mx-4 -my-6 md:-mx-6 flex flex-col md:h-[calc(100dvh-4rem)]">
       <BoardHeader
         board={board}
         members={members}
@@ -246,7 +246,7 @@ export function BoardCanvas({ boardId }: { boardId: string }) {
       />
 
       <div
-        className="flex-1 overflow-x-auto overflow-y-hidden p-4 md:p-6"
+        className="flex-1 overflow-x-auto md:overflow-y-hidden p-4 md:p-6 snap-x snap-mandatory md:snap-none scroll-px-4 md:scroll-px-6"
         style={{ backgroundColor: board.background + "15" }}
       >
         <DragDropContext onDragEnd={handleDragEnd}>
@@ -255,7 +255,7 @@ export function BoardCanvas({ boardId }: { boardId: string }) {
               <div
                 ref={provided.innerRef}
                 {...provided.droppableProps}
-                className="flex gap-4 h-full items-start"
+                className="flex gap-4 items-start md:h-full"
               >
                 {filteredLists.map((list, index) => (
                   <BoardList
