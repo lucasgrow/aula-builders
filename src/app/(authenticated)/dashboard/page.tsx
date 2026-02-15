@@ -8,7 +8,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Dashboard</h1>
+      <h1 className="text-2xl font-bold">Dashboard Exemplo</h1>
       <Card>
         <CardBody>
           <p className="text-default-500">
